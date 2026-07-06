@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이현호 — Software Engineer</title>
+<meta name="description" content="DB 성능, 인프라 비용, 비동기 처리를 운영 데이터로 증명하는 백엔드 엔지니어 이현호의 포트폴리오입니다.">
+<style>
+:root {
+  --bg: #FBFAF8;
+  --surface: #F3F1EC;
+  --text: #1E2226;
+  --muted: #5E676E;
+  --accent: #23636B;
+  --accent-soft: #EDF3F2;
+  --line: #E4E1DB;
+  --metric: #1C5058;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171A;
+    --surface: #1C2024;
+    --text: #E7E4DE;
+    --muted: #9AA1A6;
+    --accent: #6FC0C4;
+    --accent-soft: #1B2A2C;
+    --line: #2A2F33;
+    --metric: #8ED0D3;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171A;
+  --surface: #1C2024;
+  --text: #E7E4DE;
+  --muted: #9AA1A6;
+  --accent: #6FC0C4;
+  --accent-soft: #1B2A2C;
+  --line: #2A2F33;
+  --metric: #8ED0D3;
+}
+:root[data-theme="light"] {
+  --bg: #FBFAF8;
+  --surface: #F3F1EC;
+  --text: #1E2226;
+  --muted: #5E676E;
+  --accent: #23636B;
+  --accent-soft: #EDF3F2;
+  --line: #E4E1DB;
+  --metric: #1C5058;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+.wrap {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover, a:focus-visible { border-bottom-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- header ---------- */
+header.site h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+header.site .role {
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+header.site .tagline {
+  margin-top: 1.1rem;
+  color: var(--muted);
+  max-width: 38rem;
+}
+header.site nav {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.92rem;
+}
+
+/* ---------- section scaffolding ---------- */
+section > h2 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.6rem;
+}
+.section-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+.section-note strong { color: var(--accent); font-weight: 600; }
+
+/* ---------- intro ---------- */
+.intro p + p { margin-top: 0.9rem; }
+
+/* ---------- highlights ---------- */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.highlights .stat {
+  background: var(--bg);
+  padding: 1.1rem 1.2rem 1rem;
+}
+.highlights .value {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--metric);
+  letter-spacing: -0.01em;
+}
+.highlights .label {
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+@media (max-width: 560px) {
+  .highlights { grid-template-columns: 1fr; }
+}
+
+/* ---------- career / projects ---------- */
+.company { display: flex; flex-direction: column; gap: 2.2rem; }
+.company + .company { margin-top: 3rem; }
+.company > header h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.company > header .meta {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.project h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.project .stack {
+  margin-top: 0.2rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+dl.paar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-left: 2px solid var(--line);
+  padding-left: 1.1rem;
+}
+dl.paar > div {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+dl.paar dt {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding-top: 0.15rem;
+}
+dl.paar div.analyze dt { color: var(--accent); }
+dl.paar div.analyze dd { background: var(--accent-soft); border-radius: 6px; padding: 0.55rem 0.8rem; }
+dl.paar dd { font-size: 0.95rem; color: var(--text); }
+dl.paar dd .m {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.88em;
+  font-weight: 700;
+  color: var(--metric);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  dl.paar > div { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+.etc {
+  border-top: 1px dashed var(--line);
+  padding-top: 1.2rem;
+}
+.etc h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6rem;
+}
+.etc ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.etc li {
+  font-size: 0.92rem;
+  color: var(--muted);
+  padding-left: 1rem;
+  position: relative;
+}
+.etc li::before { content: "·"; position: absolute; left: 0.2rem; color: var(--accent); }
+.etc li strong { color: var(--text); font-weight: 600; }
+
+/* ---------- skills ---------- */
+.skills { display: flex; flex-direction: column; gap: 0.9rem; }
+.skills .row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+}
+.skills .cat {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.skills .items { font-size: 0.95rem; }
+@media (max-width: 560px) {
+  .skills .row { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wrap > * { animation: rise 0.5s ease both; }
+  .wrap > *:nth-child(2) { animation-delay: 0.05s; }
+  .wrap > *:nth-child(3) { animation-delay: 0.1s; }
+  .wrap > *:nth-child(4) { animation-delay: 0.15s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <h1>이현호</h1>
+  <p class="role">Software Engineer · Backend</p>
+  <p class="tagline">기능 구현에서 멈추지 않고 느린 응답, 반복되는 오류, 불필요한 운영 리소스를 찾아 구조적으로 개선합니다. 복잡한 문제는 작은 단위로 나누고, 로그·지표·테스트로 가설을 검증하며, 문서로 맥락을 정리해 팀이 같은 기준으로 결정하도록 돕습니다.</p>
+  <nav>
+    <a href="https://github.com/ethznn">GitHub</a>
+  </nav>
+</header>
+
+<section aria-label="핵심 성과">
+  <h2>Highlights</h2>
+  <div class="highlights">
+    <div class="stat">
+      <div class="value">16.2s → 79ms</div>
+      <div class="label">약 2,100만 행 JSONB 테이블 조회 — 병목을 TOAST 접근 비용으로 분해해 개선</div>
+    </div>
+    <div class="stat">
+      <div class="value">EB → ECS 중앙화</div>
+      <div class="label">서비스별로 분산된 EB 환경을 중앙 클러스터·Terraform IaC로 전환</div>
+    </div>
+    <div class="stat">
+      <div class="value">peak 25s → 5s</div>
+      <div class="label">정기 캐시 Lambda 운영 실측 — Index Only Scan 전환으로 단축</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Experience</h2>
+  <p class="section-note">각 프로젝트는 문제 → <strong>분석</strong> → 실행 → 성과 순으로 정리했습니다. 무엇을 했는지보다 <strong>왜 그 방식을 선택했는지</strong>를 중심에 둡니다.</p>
+
+  <div class="company">
+    <header>
+      <h3>북아이피스</h3>
+      <p class="meta">Software Engineer · 교육 콘텐츠 플랫폼 — 문제집 제작·판매 서비스의 백엔드, DB, 인프라 담당</p>
+    </header>
+
+    <article class="project">
+      <h4>대규모 DB 조회 성능 최적화</h4>
+      <p class="stack">PostgreSQL · JSONB/TOAST · Index Only Scan · TypeORM</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>서비스 사용량 증가로 약 <span class="m">2,100만 행</span> 규모 문항 테이블에서 3초 이상 슬로우 쿼리가 반복 발생. 자료가 많은 사용자(약 <span class="m">15만 행</span> 보유) 기준 조회가 <span class="m">16.2s</span>, 정기 캐시 Lambda는 <span class="m">195.6s</span>까지 도달.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>read replica에서 워스트 케이스를 EXPLAIN ANALYZE로 재현해 병목을 분리. 원인은 인덱스 부재가 아니라 JSONB 접근 비용 — 본문 HTML이 담긴 jsonb는 TOAST에 저장되고 부분 읽기가 불가능해, 메타 필드 하나를 꺼내도 행 전체를 디토스트하며 비용이 보유 행 수에 비례. 표현식 인덱스를 먼저 검증했으나 planner가 covering으로 인정하지 않아 Index Only Scan이 성립하지 않음을 확인하고 정규화 컬럼 승격을 선택. 무중단이 필수라 테이블 rewrite를 유발하는 generated column 대신 nullable 컬럼+트리거+배치 백필 조합으로 결정.</dd></div>
+        <div><dt>실행</dt><dd>정규화 컬럼·BEFORE 트리거 추가, 약 <span class="m">2,100만 행</span> keyset 배치 백필(<span class="m">2h 7m</span>, 중단·재개 가능), CONCURRENTLY covering index, VACUUM ANALYZE. 별도 API의 N+1 집계 쿼리를 <span class="m">N회 → 1회</span>로 재구성하고 실 DB 검증을 거친 인덱스 8종 추가.</dd></div>
+        <div><dt>성과</dt><dd><span class="m">16.2s → 79ms</span>, <span class="m">4.9s → 23ms</span>, Heap Fetches 0, 다운타임 0. 캐시 Lambda <span class="m">195.6s → 35.2s</span>, 운영 peak <span class="m">17~25s → 2~5s</span>. 결과 동치성 검증, 신규 인덱스 8종 실사용 확인.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>EB 분산 운영 → ECS(EC2) 중앙 클러스터 · Terraform IaC 전환</h4>
+      <p class="stack">ECS · Terraform · GitHub OIDC · ALB · Capacity Provider</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>서비스가 늘며 EB 환경마다 Auto Scaling Group·ALB·CloudWatch가 중복 생성 — 유휴 리소스와 관리 부채가 서비스 수에 비례해 증가하는 구조.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>운영 서비스 트래픽 성격을 검토해 공용 ALB 공유 리스크가 낮다고 판단, 중앙 클러스터+공용 ALB+서비스별 Target Group 구조를 선택. IaC 소유권은 완전 중앙형/하이브리드/배포 레이어 분리 3안을 비교해, 통제와 서비스팀 자율성의 균형을 위해 공통 인프라는 중앙 레포가, Task Definition·Service는 서비스 레포가 소유하는 안을 채택. 전환은 Route53 Alias 스위칭으로 롤백 가능하게 설계.</dd></div>
+        <div><dt>실행</dt><dd>S3 state·DynamoDB lock·GitHub OIDC 부트스트랩, 배포/롤백 가이드 문서화, 핵심 리소스 prevent_destroy 보호. 빈 인스턴스가 축소되지 않는 이슈를 5단계로 추적해 Terraform이 ECS 관리 태그를 지우는 근본 원인을 해결.</dd></div>
+        <div><dt>성과</dt><dd>인프라 비용 구조 개선을 목표로 점진 전환 진행, 무중단 롤링 배포 약 <span class="m">5분</span>, 빈 인스턴스 자동 회수 정상화, 팀원이 가이드만으로 서비스를 추가하는 운영 체계 확립.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>레거시 Express API 현대화 및 백엔드 통합</h4>
+      <p class="stack">Express → NestJS · Nginx 로그 분석 · Route53 컷오버</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>로그인·인증 등 공통 기능을 담당하는 Express+Knex 레거시 서버가 주 스택(NestJS+TypeORM)과 달라 유지보수가 어렵고 전용 인스턴스 3대를 점유.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>스펙 문서가 없는 레거시라 코드가 아닌 실제 트래픽으로 범위를 정의 — 운영 Nginx 로그 수백만 라인을 분석해 유효 엔드포인트 <span class="m">52개</span>를 추리고, 2xx/3xx 실동작 <span class="m">28개</span>에서 FE 버그 호출·보안 스캔 노이즈를 제외한 <span class="m">27개</span>로 축소. FE 영향 최소화를 위해 Method·Path·Response를 유지하는 API 동등성 전략을 세우고, DB 공유·ALB 라우팅·JWT/쿠키 호환·NAT egress IP·cron 의존성을 사전 검증해 롤백 가능한 컷오버로 설계.</dd></div>
+        <div><dt>실행</dt><dd>NestJS+TypeORM 재구현, 임시 도메인 검증 후 Route53 컷오버. 이후 마켓 백엔드로 흡수 통합 — 중복 엔티티 23종은 네임스페이스 분리로 무수정 공존.</dd></div>
+        <div><dt>성과</dt><dd>배포 후 12시간 ERROR 로그 <span class="m">60건</span> 전수 분석으로 이상 없음 확인, 전용 인스턴스 3대 회수, 운영 ECS 서비스 1개 추가 감축.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>트리거 기반 데이터 동기화 → CDC 이벤트 처리 전환</h4>
+      <p class="stack">AWS DMS · Kinesis · Lambda · PostgreSQL WAL</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>검색 테이블 동기화가 RDS 트리거 5종에 의존해 대량 업데이트 시 Lock이 전파되어 실제 서비스 다운이 발생. 소수 행 변경이 수천 건 갱신으로 파급되는 구조에 트리거 수동 on/off 부담까지 존재.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>DMS 기반 CDC, Logical Decoding 직접 구성, Outbox 패턴, 폴링 4안을 관리 난이도·안정성·구축 속도·확장성으로 비교. 직접 구성은 복제 슬롯 운영 부담, Outbox는 코드 침투, 폴링은 분 단위 지연이 있어 팀 규모에 맞는 관리형 DMS를 채택. 컬럼 단위 필터링 불가 한계는 before-image를 활성화해 Lambda에서 before/after 비교로 보완, 이벤트 폭증은 bulk 감지로 실시간 반영을 차단하고 배치 재처리로 우회하도록 설계.</dd></div>
+        <div><dt>실행</dt><dd>PoC → staging → prod 단계 적용, 트리거 5종 비활성화, bulk 감지+Slack 알림+배치 backfill, 복제 인스턴스는 OOM 실측으로 스펙 결정.</dd></div>
+        <div><dt>성과</dt><dd>대량 업데이트 시 Lock·장애 전파 리스크 제거, 변경 컬럼만 부분 업데이트해 의도치 않은 값 변경 방지, 전환 중 누락 데이터 복구까지 완료.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>벡터 임베딩 기반 유사 지문 검색 구조 설계</h4>
+      <p class="stack">pgvector · HNSW · Python Lambda · sentence-transformers</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>외부지문 등록 시 기존 지문 수만 건과의 유사도를 검출해 중복 등록을 막아야 했고, 지문이 계속 증가하는 특성상 확장 가능한 검색 구조가 필요.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>기존 Doc2Vec은 지문 1건 추가마다 전체 재학습이 필요해 증가형 데이터에 부적합 — 사전학습 모델은 1건 인코딩 후 즉시 반영 가능. 모델 4종을 실제 지문으로 Top-N·유사도 점수·인코딩/검색 시간 실측 비교. BGE-M3는 품질이 가장 높았지만 <span class="m">2.3GB</span>로 Lambda 메모리 한계 초과, 외부 API는 의존성·장애 리스크로 기각. e5-small-v2가 large와 품질이 거의 동일(<span class="m">0.947 vs 0.957</span>)하면서 <span class="m">384차원 · 130MB</span>로 비용이 낮아 채택, 판정 임계값 0.9도 실측으로 결정.</dd></div>
+        <div><dt>실행</dt><dd>pgvector+HNSW 인덱스, Python Lambda 컨테이너 embedding 서버 구성. 원본 테이블을 Source of Truth로 유지하고 변경·승인 시 즉시 갱신, 주기 fallback으로 누락 보완.</dd></div>
+        <div><dt>성과</dt><dd>brute-force 검색을 HNSW 근사 탐색 구조로 대체, 재학습 비용 제거, 모델 선정 근거를 팀 문서로 공유.</dd></div>
+      </dl>
+    </article>
+
+    <div class="etc">
+      <h4>그 외 개선</h4>
+      <ul>
+        <li><strong>API 레이턴시 알람 설계</strong> — 14일 p95 실측으로 임계값을 산출하고 3일 백테스트로 알람 <strong>33건 → 11건</strong>까지 노이즈 축소, 실제 DB 장애 약 3분 내 감지 검증</li>
+        <li><strong>Redis Pub/Sub 2-tier 캐시</strong> — 오토스케일링 환경의 인스턴스 간 캐시 불일치를 L1 인메모리+L2 Redis+Pub/Sub 동기화로 해소, 장애 시나리오별 fallback 문서화</li>
+        <li><strong>PDF 생성 Job 서버 분리·안정화</strong> — API 서버에서 분리하고, 브라우저 프로세스 리소스 누수로 인한 연쇄 실패를 로그 타임라인 분석으로 규명·해결</li>
+        <li><strong>팀 개발 체계 정립</strong> — NestJS 기술스택 선정, tag 기반 staging/prod 배포, PR 템플릿·리뷰 기준 문서화</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="company">
+    <header>
+      <h3>스페이스워크</h3>
+      <p class="meta">Software Engineer · 프롭테크 — 토지 매물·사업성 분석 서비스의 백엔드, 운영 안정화, 레거시 전환 담당</p>
+    </header>
+
+    <article class="project">
+      <h4>Ruby on Rails → Kotlin Spring Boot MSA 단계적 전환</h4>
+      <p class="stack">Kotlin · Spring Boot · Kubernetes · JMeter · nGrinder</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>레거시 Rails API의 유지보수·확장 한계, 문서 부재로 온보딩이 어려운 상태.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>전면 재작성은 검증 불가 리스크가 커서, FE 테스트가 완료된 API부터 도메인 단위로 이관해 전환 리스크를 롤백 가능한 단위로 축소하는 접근을 선택. 이관 판단 근거를 만들기 위해 JMeter·nGrinder로 신구 서버를 동일 조건에서 성능 비교.</dd></div>
+        <div><dt>실행</dt><dd>API 문서·히스토리 보강으로 신규 입사자 2명 온보딩 지원, 도메인 분리 이관, Kubernetes HPA·PDB 설정과 모니터링으로 운영 안정성 확보.</dd></div>
+        <div><dt>성과</dt><dd>약 <span class="m">8개월</span>간 서비스 중단 없이 MSA 전환 수행.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>간헐적 서버 다운(메모리 누수) 원인 추적</h4>
+      <p class="stack">Kubernetes · Elasticsearch · 메모리 프로파일링</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>특정 Pod에서 간헐적으로 서버 다운이 발생.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>특정 Pod에서만 재현되는 점에서 인프라 전역 문제가 아닌 애플리케이션 원인으로 가설을 좁히고, 메모리 지표와 클라이언트 사용 패턴을 교차 확인 — Elasticsearch RestHighLevelClient가 종료되지 않아 리소스가 누적되는 것을 특정.</dd></div>
+        <div><dt>실행</dt><dd>클라이언트 종료 처리 수정, 대규모 업데이트 전 부하 테스트와 Pod 수 조정·모니터링 프로세스 정착.</dd></div>
+        <div><dt>성과</dt><dd>간헐 다운 재발 방지, 대규모 업데이트 시 안정적 배포 체계 확보.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h4>정식 런칭 전 Docker / Elastic Beanstalk 관리형 배포 도입</h4>
+      <p class="stack">Docker · Elastic Beanstalk · GitHub Actions</p>
+      <dl class="paar">
+        <div><dt>문제</dt><dd>EC2 직접 배포로 절차가 수동적이고 반복 가능성이 낮아 런칭 후 운영 리스크가 존재.</dd></div>
+        <div class="analyze"><dt>분석</dt><dd>인프라 전담이 없는 초기 팀에는 고자유도 플랫폼보다 관리형 PaaS가 학습 비용·운영 부담 면에서 적합하다고 판단. 팀 적응을 위해 대시보드 배포로 시작해 GitHub Actions CI/CD로 자동화하는 단계적 도입을 선택.</dd></div>
+        <div><dt>실행</dt><dd>Docker 베이스 이미지 설계, EB 환경 구성, CI/CD 자동화 후 타 팀 공유.</dd></div>
+        <div><dt>성과</dt><dd>정식 런칭 전 반복 가능한 배포 기반 확보, 수동 배포 부담 제거.</dd></div>
+      </dl>
+    </article>
+
+    <div class="etc">
+      <h4>그 외 개선</h4>
+      <ul>
+        <li><strong>푸시 알림 중복 발송 개선</strong> — New Relic 트랜잭션 추적으로 분산 호출 경로를 시각화해 원인 특정, SQS·Lambda 설정 조정으로 해소</li>
+        <li><strong>건축 설계 요청 비동기화</strong> — 완료 시점이 긴 작업을 Azure Queue+DB polling으로 분리, 상태 실시간 알림으로 실패 감지 단축</li>
+        <li><strong>사내 데이터 기준 통일</strong> — 팀별로 다르던 데이터 해석을 제품용/개발용 DB 이원화 프로세스로 정리·도입</li>
+        <li><strong>공공기관 내부망 설치형 서비스</strong> — 온프레미스 제약에 맞춘 통신 구조 설계, 설치 이미지 패키징, 현장 구축</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="row"><span class="cat">Backend</span><span class="items">TypeScript · NestJS · Node.js · Kotlin · Spring Boot</span></div>
+    <div class="row"><span class="cat">Database</span><span class="items">PostgreSQL (실행계획 분석·인덱스 설계·pgvector) · Redis · TypeORM · QueryDSL</span></div>
+    <div class="row"><span class="cat">Infra</span><span class="items">AWS (ECS, Elastic Beanstalk, Lambda, SQS, DMS/Kinesis, CloudWatch) · Terraform · Docker · GitHub Actions · Kubernetes</span></div>
+    <div class="row"><span class="cat">Etc</span><span class="items">부하 테스트 (K6, JMeter, nGrinder) · New Relic · 기술 문서화 기반 협업</span></div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 이현호</span>
+  <span><a href="https://github.com/ethznn">github.com/ethznn</a></span>
+</footer>
+
+</div>
+</body>
+</html>
