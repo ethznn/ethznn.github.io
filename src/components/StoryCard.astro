@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  story: CollectionEntry<'stories'>;
+}
+
+const { story } = Astro.props;
+---
+
+<article class="story-card">
+  <p class="story-card__metric">{story.data.metric}</p>
+  <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+  <p>{story.data.summary}</p>
+  <ul class="topic-list" aria-label="주요 기술">
+    {story.data.topics.map((topic) => <li>{topic}</li>)}
+  </ul>
+  <a class="story-card__link" href={`/stories/${story.id}/`}>자세히 보기 <span aria-hidden="true">→</span></a>
+</article>
+
+<style>
+  .story-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: clamp(1.25rem, 3vw, 1.8rem);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .story-card__metric {
+    margin-bottom: 1.35rem;
+    color: var(--accent);
+    font-size: clamp(1.45rem, 3vw, 2.1rem);
+    font-weight: 850;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  p:not(.story-card__metric) {
+    color: var(--muted);
+  }
+
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: auto 0 1.2rem;
+    padding: 1rem 0 0;
+    list-style: none;
+  }
+
+  .topic-list li {
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .story-card__link {
+    align-self: flex-start;
+    min-height: 44px;
+    padding-block: 0.55rem;
+    font-weight: 750;
+  }
+</style>

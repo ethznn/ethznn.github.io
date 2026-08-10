@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import StoryCard from '../../components/StoryCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Engineering Stories — Hyeonho Lee"
+  description="실제 제품과 운영 문제를 분석하고 설계·구현·검증한 이현호의 Engineering Stories입니다."
+  canonicalPath="/stories/"
+>
+  <header class="stories-header page-shell">
+    <div class="reading-width">
+      <p class="eyebrow">Evidence of problem solving</p>
+      <h1>Engineering Stories</h1>
+      <p>
+        기술 목록보다 문제를 어떻게 나누고, 어떤 선택을 했으며, 운영에서 무엇이 달라졌는지를 기록합니다.
+      </p>
+    </div>
+  </header>
+  <section class="stories page-shell" aria-label="Engineering Story 목록">
+    {stories.map((story) => <StoryCard {story} />)}
+  </section>
+</BaseLayout>
+
+<style>
+  .stories-header {
+    padding-block: clamp(4rem, 9vw, 7rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .stories-header h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .stories-header p:last-child {
+    color: var(--muted);
+    font-size: clamp(1.08rem, 2vw, 1.25rem);
+  }
+
+  .stories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 52rem) {
+    .stories {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

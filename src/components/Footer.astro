@@ -1,0 +1,25 @@
+---
+import { profile } from '../data/profile';
+---
+
+<footer id="contact" class="site-footer">
+  <div class="site-footer__inner">
+    <p>문제를 구조화하고, 해결책을 운영 가능한 시스템으로 만듭니다.</p>
+    <nav aria-label="연락처와 외부 프로필">
+      <ul class="site-footer__links">
+        {profile.links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noreferrer' : undefined}
+            >
+              {link.label}{link.external && <span class="sr-only"> (새 창)</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <small>© {new Date().getFullYear()} Hyeonho Lee</small>
+  </div>
+</footer>

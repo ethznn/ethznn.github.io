@@ -1,0 +1,65 @@
+---
+import type { Product } from '../data/profile';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<article class="product-card">
+  <p class="product-card__status">{product.status}</p>
+  <h3>{product.name}</h3>
+  <p>{product.summary}</p>
+  <ul>
+    {product.links.map((link) => (
+      <li>
+        <a href={link.href} target="_blank" rel="noreferrer">
+          {link.label} <span class="external-cue">· 새 창</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .product-card {
+    padding: clamp(1.25rem, 3vw, 1.8rem);
+    border-top: 3px solid var(--accent);
+    background: var(--surface);
+  }
+
+  .product-card__status {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 750;
+  }
+
+  .product-card > p:not(.product-card__status) {
+    color: var(--muted);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 750;
+  }
+
+  .external-cue {
+    margin-left: 0.25rem;
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 550;
+  }
+</style>

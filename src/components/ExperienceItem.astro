@@ -1,0 +1,127 @@
+---
+import type { Experience } from '../data/profile';
+
+interface Props {
+  experience: Experience;
+  compact?: boolean;
+}
+
+const { experience, compact = false } = Astro.props;
+const CompanyHeading = compact ? 'h3' : 'h2';
+---
+
+<article class:list={['experience-item', { 'experience-item--compact': compact }]}>
+  <div class="experience-item__heading">
+    <div>
+      <CompanyHeading>{experience.company}</CompanyHeading>
+      <p>{experience.role}</p>
+    </div>
+    <p class="experience-item__period">{experience.period}</p>
+  </div>
+  <p class="experience-item__summary">{experience.summary}</p>
+  {!compact && <p class="experience-item__ownership">{experience.ownership}</p>}
+  {!compact && experience.sections.map((section) => (
+    <section class="experience-item__section">
+      <h3>{section.title}</h3>
+      <ul>
+        {section.bullets.map((bullet) => <li>{bullet}</li>)}
+      </ul>
+      {section.links && (
+        <ul class="experience-item__links" aria-label={`${section.title} 관련 Engineering Stories`}>
+          {section.links.map((link) => (
+            <li><a href={link.href}>{link.label} <span aria-hidden="true">→</span></a></li>
+          ))}
+        </ul>
+      )}
+    </section>
+  ))}
+</article>
+
+<style>
+  .experience-item {
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .experience-item__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+  }
+
+  h2,
+  h3,
+  p {
+    margin-bottom: 0.25rem;
+  }
+
+  .experience-item__heading div p,
+  .experience-item__period,
+  .experience-item__summary,
+  .experience-item__ownership {
+    color: var(--muted);
+  }
+
+  .experience-item__summary {
+    max-width: 48rem;
+    margin-top: 0.8rem;
+  }
+
+  .experience-item__ownership {
+    max-width: 48rem;
+    margin-top: 0.75rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .experience-item__period {
+    white-space: nowrap;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .experience-item__section {
+    max-width: 52rem;
+    margin-top: clamp(2.4rem, 5vw, 3.8rem);
+  }
+
+  .experience-item__section h3 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  }
+
+  .experience-item__section > ul:not(.experience-item__links) {
+    color: var(--muted);
+  }
+
+  .experience-item__section li::marker {
+    color: var(--accent);
+  }
+
+  .experience-item__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .experience-item__links a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-weight: 750;
+  }
+
+  @media (max-width: 34rem) {
+    .experience-item__heading {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

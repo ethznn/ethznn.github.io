@@ -1,0 +1,54 @@
+---
+import ExperienceItem from '../components/ExperienceItem.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { experiences } from '../data/profile';
+---
+
+<BaseLayout
+  title="Experience — Hyeonho Lee"
+  description="이현호의 백엔드·데이터·클라우드 엔지니어링 경력과 대표 성과입니다."
+  canonicalPath="/experience/"
+>
+  <header class="experience-header page-shell">
+    <div class="reading-width">
+      <p class="eyebrow">2018 — Now</p>
+      <h1>Experience</h1>
+      <p>
+        회사별 역할을 단순한 기술 목록이 아니라, 맡았던 제품과 해결한 문제의 범위가 보이도록 정리했습니다.
+        더 깊은 판단과 구현 과정은 각 업무 영역에 연결된 Engineering Story에서 확인할 수 있습니다.
+      </p>
+    </div>
+  </header>
+
+  <section class="experience-content page-shell" aria-label="경력">
+    {experiences.map((experience) => (
+      <div class="experience-block">
+        <ExperienceItem {experience} />
+      </div>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .experience-header {
+    padding-block: clamp(4rem, 9vw, 7rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .experience-header h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .experience-header p:last-child {
+    color: var(--muted);
+    font-size: clamp(1.08rem, 2vw, 1.25rem);
+  }
+
+  .experience-content {
+    display: grid;
+    gap: 3.5rem;
+  }
+
+  .experience-block + .experience-block {
+    margin-top: clamp(3rem, 8vw, 6rem);
+  }
+</style>

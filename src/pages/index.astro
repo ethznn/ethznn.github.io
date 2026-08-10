@@ -1,0 +1,252 @@
+---
+import { getCollection } from 'astro:content';
+import ExperienceItem from '../components/ExperienceItem.astro';
+import ProductCard from '../components/ProductCard.astro';
+import StoryCard from '../components/StoryCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { capabilities, experiences, products, profile } from '../data/profile';
+
+const stories = (await getCollection('stories', ({ data }) => data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="이현호 — Backend-focused Software Engineer"
+  description={profile.introduction}
+  canonicalPath="/"
+>
+  <section class="hero page-shell">
+    <div class="reading-width">
+      <p class="eyebrow">Software Engineer · Seoul</p>
+      <h1>{profile.title}</h1>
+      <p class="hero__introduction">{profile.introduction}</p>
+      <p class="hero__english" lang="en">{profile.englishIntroduction}</p>
+      <div class="hero__actions">
+        <a class="button-link" href="/stories/">Engineering Stories 보기</a>
+        <a class="button-link button-link--secondary" href="/experience/">Experience</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-shell" aria-labelledby="capabilities-title">
+    <p class="eyebrow">Problems, not tool lists</p>
+    <h2 id="capabilities-title">What I Solve</h2>
+    <div class="capability-grid">
+      {capabilities.map((capability, index) => (
+        <article class="capability">
+          <span aria-hidden="true">0{index + 1}</span>
+          <h3>{capability.title}</h3>
+          <p>{capability.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section page-shell" aria-labelledby="stories-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Problem → reasoning → result</p>
+        <h2 id="stories-title">Selected Engineering Stories</h2>
+      </div>
+      <a href="/stories/">전체 Stories 보기 <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="story-grid">
+      {stories.map((story) => <StoryCard {story} />)}
+    </div>
+  </section>
+
+  <section id="products" class="section page-shell" aria-labelledby="products-title">
+    <p class="eyebrow">Independent products</p>
+    <h2 id="products-title">직접 만들고 있는 제품</h2>
+    <div class="product-grid">
+      {products.map((product) => <ProductCard {product} />)}
+    </div>
+  </section>
+
+  <section class="section page-shell" aria-labelledby="experience-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">2018 — Now</p>
+        <h2 id="experience-title">Experience</h2>
+      </div>
+      <a href="/experience/">경력 자세히 보기 <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="experience-list">
+      {experiences.map((experience) => <ExperienceItem {experience} compact />)}
+    </div>
+  </section>
+
+  <section class="section page-shell split-section">
+    <div>
+      <p class="eyebrow">Principles</p>
+      <h2>How I Work</h2>
+      <ul class="principle-list">
+        {profile.howIWork.map((principle) => <li>{principle}</li>)}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Tools in context</p>
+      <h2>Working With</h2>
+      <ul class="tool-list" aria-label="주요 기술">
+        {profile.workingWith.map((technology) => <li>{technology}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(4.5rem, 11vw, 8.5rem);
+  }
+
+  .hero h1 {
+    margin-bottom: 1.6rem;
+  }
+
+  .hero__introduction {
+    max-width: 42rem;
+    margin-bottom: 1rem;
+    font-size: clamp(1.12rem, 2vw, 1.36rem);
+  }
+
+  .hero__english {
+    max-width: 39rem;
+    margin-bottom: 2rem;
+    color: var(--muted);
+  }
+
+  .hero__actions,
+  .section-heading,
+  .product-grid,
+  .split-section {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .hero__actions {
+    flex-wrap: wrap;
+  }
+
+  .section {
+    padding-block: clamp(3.8rem, 8vw, 7rem);
+  }
+
+  .section-heading {
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 2.1rem;
+  }
+
+  .section-heading h2,
+  .section-heading .eyebrow {
+    margin-bottom: 0;
+  }
+
+  .section-heading > a {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding-block: 0.55rem;
+    font-weight: 750;
+  }
+
+  .capability-grid,
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .capability {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .capability > span {
+    display: block;
+    margin-bottom: 2.6rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .capability p,
+  .principle-list {
+    color: var(--muted);
+  }
+
+  .product-grid {
+    margin-top: 2rem;
+  }
+
+  .product-grid > * {
+    flex: 1 1 0;
+  }
+
+  .experience-list {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .split-section {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .split-section > div {
+    flex: 1 1 0;
+  }
+
+  .principle-list {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 34rem;
+  }
+
+  .tool-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tool-list li {
+    padding: 0.42rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 52rem) {
+    .story-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .capability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .capability > span {
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  @media (max-width: 42rem) {
+    .section-heading,
+    .product-grid,
+    .split-section {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .section-heading {
+      margin-bottom: 1.4rem;
+    }
+
+    .split-section {
+      gap: 4rem;
+    }
+  }
+</style>

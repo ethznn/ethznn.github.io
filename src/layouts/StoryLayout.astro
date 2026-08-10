@@ -1,0 +1,231 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  story: CollectionEntry<'stories'>;
+  previous?: CollectionEntry<'stories'>;
+  next?: CollectionEntry<'stories'>;
+}
+
+const { story, previous, next } = Astro.props;
+const canonicalPath = `/stories/${story.id}/`;
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: story.data.title,
+  description: story.data.summary,
+  datePublished: story.data.publishedAt.toISOString(),
+  dateModified: story.data.updatedAt.toISOString(),
+  author: { '@type': 'Person', name: 'Hyeonho Lee', url: 'https://ethznn.github.io' },
+  mainEntityOfPage: new URL(canonicalPath, Astro.site).toString(),
+};
+---
+
+<BaseLayout
+  title={`${story.data.title} — Hyeonho Lee`}
+  description={story.data.summary}
+  {canonicalPath}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={story.data.publishedAt.toISOString()} />
+    <meta property="article:modified_time" content={story.data.updatedAt.toISOString()} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <article class="story page-shell">
+    <header class="story__header reading-width">
+      <a class="story__back" href="/stories/"><span aria-hidden="true">←</span> Engineering Stories</a>
+      <p class="eyebrow">Engineering Story</p>
+      <h1>{story.data.title}</h1>
+      <p class="story__summary">{story.data.summary}</p>
+      <div class="story__meta">
+        <strong>{story.data.metric}</strong>
+        <span>
+          <time datetime={story.data.publishedAt.toISOString()}>{formatDate(story.data.publishedAt)}</time>
+          {story.data.updatedAt.getTime() !== story.data.publishedAt.getTime() && (
+            <> · 수정 <time datetime={story.data.updatedAt.toISOString()}>{formatDate(story.data.updatedAt)}</time></>
+          )}
+        </span>
+      </div>
+      <ul class="story__topics" aria-label="주요 기술">
+        {story.data.topics.map((topic) => <li>{topic}</li>)}
+      </ul>
+    </header>
+
+    <div class="story__body reading-width">
+      <slot />
+    </div>
+
+    <nav class="story__pagination reading-width" aria-label="다른 Engineering Story">
+      {previous ? (
+        <a href={`/stories/${previous.id}/`}>
+          <span>이전 Story</span>
+          <strong>{previous.data.title}</strong>
+        </a>
+      ) : <span />}
+      {next && (
+        <a href={`/stories/${next.id}/`} class="story__next">
+          <span>다음 Story</span>
+          <strong>{next.data.title}</strong>
+        </a>
+      )}
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .story {
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  .story__header,
+  .story__body,
+  .story__pagination {
+    margin-inline: auto;
+  }
+
+  .story__back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 3rem;
+    font-weight: 750;
+  }
+
+  .story h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.2rem, 5.4vw, 3.9rem);
+  }
+
+  .story__summary {
+    max-width: 39rem;
+    color: var(--muted);
+    font-size: clamp(1.12rem, 2vw, 1.3rem);
+  }
+
+  .story__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.6rem;
+    padding-block: 1.2rem;
+    border-block: 1px solid var(--line);
+  }
+
+  .story__meta strong {
+    color: var(--accent);
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+  }
+
+  .story__meta span {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .story__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .story__topics li {
+    padding: 0.3rem 0.62rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .story__body {
+    padding-block: clamp(3.8rem, 8vw, 6.5rem);
+  }
+
+  .story__body :global(h2) {
+    margin: 4rem 0 1.1rem;
+    font-size: clamp(1.55rem, 3vw, 2.05rem);
+  }
+
+  .story__body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .story__body :global(p) {
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .story__body :global(ul),
+  .story__body :global(ol) {
+    display: grid;
+    gap: 0.65rem;
+    color: var(--muted);
+    font-size: 1.02rem;
+  }
+
+  .story__body :global(li::marker) {
+    color: var(--accent);
+    font-weight: 750;
+  }
+
+  .story__body :global(code) {
+    padding: 0.12em 0.3em;
+    border-radius: 0.25rem;
+    background: var(--surface-strong);
+    color: var(--text);
+  }
+
+  .story__pagination {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .story__pagination a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 6rem;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .story__pagination a:hover {
+    background: var(--surface);
+  }
+
+  .story__pagination span {
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .story__next {
+    text-align: right;
+  }
+
+  @media (max-width: 38rem) {
+    .story__meta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .story__pagination {
+      grid-template-columns: 1fr;
+    }
+
+    .story__next {
+      text-align: left;
+    }
+  }
+</style>
