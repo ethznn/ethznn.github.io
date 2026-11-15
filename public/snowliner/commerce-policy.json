@@ -1,5 +1,5 @@
 {
   "schema": 1,
-  "enabled": false,
-  "paidThroughUnix": 0
+  "enabled": true,
+  "paidThroughUnix": 1794651909
 }
